@@ -1,6 +1,6 @@
 
 body{
-    margin: 0;
+    margin: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,17 +20,20 @@ body{
     font-size: 5rem;
     border: none;
     background-color: #a594f9;
+    color: white;
 }
 #keys{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
     padding: 25px;
+    
 }
 button{
-    width: 100px;
-    height: 100px;
-    border-radius: 50px;
+    margin: auto;
+    width: 90px;
+    height: 90px;
+    border-radius: 45px;
     border: none;
     background-color: #a594f9;
     color: white;
@@ -52,4 +55,14 @@ button:active{
 }
 .operator:active{
     background-color: hsl(250, 56%, 76%);
+}
+.empty{
+    background-color: #a594f900;
+    border-radius: 10px;
+}
+.empty:hover{
+    background-color: #a594f900;
+}
+.empty:active{
+    background-color: #a594f900;
 }

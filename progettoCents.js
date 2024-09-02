@@ -1,7 +1,7 @@
 
 const display = document.getElementById("display");
-let check = 0;
-let count = 0;
+let check = 0; // number of caracters on calculator display, can't be more than 10
+let count = 0; // number of ints submitted for operation (must be two for operation to take place)
 
 //called when user clicks clear 
 function clearDisplay(){
@@ -12,8 +12,10 @@ function clearDisplay(){
 
 //called when user clicks on number or operator '+P', value of button is then appended to display
 function appendDisplay(input){
+    //checking if there is room on calculator display 
     if(count < 10){
         if(input === '+P'){
+            // operator symbol can only be added once there is an int submitted and no more than once
             if(check > 0 || count == 0){
                 return;
             }
@@ -30,14 +32,18 @@ function appendDisplay(input){
 
 // called when user clicks on =, it calculates the result only if two numbers have been given, else it ignores.
 async function calculate(){
-    if(check<2){
+
+    // checking if two numbers have been submitted
+    if(check!=2){
         return;
     }
     
     const [num1, num2] = display.value.split("+P");
     
-    //console.log(num1, num2);
-    clearDisplay();
+    if (isNaN(num1) || isNaN(num2)) {
+        throw new Error('Invalid numbers provided');
+    }
+
     try {
         const response = await fetch('http://localhost:3000/calculate', {
             method: 'POST',
@@ -53,6 +59,9 @@ async function calculate(){
         } else {
             alert(data.error);
         }   
+
+        //setting count to 10 so the result on screen can't be modified, user must clear screen to submit new operation
+        count = 10;
 
     } catch (error) {
         alert('Error connecting to the server');
